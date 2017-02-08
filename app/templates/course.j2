@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title>
+			GEO
+	  </title>
+
+		<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="static/main.js"></script>
+		<link rel="stylesheet" href="static/main.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1>{{ title }}</h1>
+			<form>
+				{% for task in tasks %}
+			    <div class="form-row">
+		        <label for="{{ task }}">{{ task }}</label>
+		        <input type="number" step="any" id="{{ task }}" />
+			    </div>
+				{% endfor %}
+
+		    <div class="button">
+		        <button type="submit">Tarkista</button>
+		    </div>
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	min-height: 100%;
+	margin: 0;
+
+	background-color: #DDD;
+
+	font-family: 'Titillium Web', sans-serif;
+	font-size: 14px;
+}
+
+html {
+	height: 100%;
+}
+
+.container {
+	width: 10rem;
+	margin: 1rem;
+
+	background-color: white;
+	border-radius: 5px;
+	padding: 2rem;
+}
+
+label {
+	width: 4rem;
+}
+
+input {
+	width: 100%;
+	border-radius: 2px;
+	border: 1px #BBB solid;
+	height: 1.5rem;
+	padding-left: 6px;
+}
+
+.form-row {
+	display: flex;
+	align-items: center;
+	margin: 1rem 0;
+}
+
+button {
+  color: #fff;
+  background-color: #0087BD;
+  border: none;
+  height: 2rem;
+  width: 100%;
+  border-radius: 2px;
+}
+
+h1 {
+	font-size: 1.8rem;
+	margin-top: 0;
+}
