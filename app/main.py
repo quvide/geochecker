@@ -1,26 +1,39 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
 DATA = {
-    "1": {
+    "test": {
         "title": "GC12345",
         "tasks": {
-            "1a": 1,
-            "1b": 2
-        }
+            "1a": {"val": 1, "unit": "kertaa"},
+            "1b": {"val": 2, "unit": "%"}
+        },
+        "coordinates": "N61°09'47.7\" E24°05'39.1\""
     }
 }
 
-@app.route("/<course>")
+@app.route("/<course>", methods=["GET", "POST"])
 def index(course):
     course = DATA[course]
-    print(course)
-    return render_template("course.j2", title=course["title"], tasks=course["tasks"].keys())
 
-@app.route("/<course>/<task>")
-def task(course, task):
-    return "TODO"
+    if request.method == "GET":
+        return render_template("course.j2", title=course["title"], tasks=course["tasks"])
 
-if __name__ == "__main__":
-    app.run()
+    else:
+        data = request.form.to_dict()
+        res = {"fields": {}}
+
+        wrong = False
+
+        for key, val in course["tasks"].items():
+            if key in data and data[key] and int(data[key]) == val["val"]:
+                res["fields"][key] = "ok"
+            else:
+                res["fields"][key] = "wrong"
+                wrong = True
+
+        if not wrong:
+            res["coordinates"] = course["coordinates"]
+
+        return jsonify(res)

@@ -9,7 +9,7 @@ body {
 	background-color: #DDD;
 
 	font-family: 'Titillium Web', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 html {
@@ -17,7 +17,7 @@ html {
 }
 
 .container {
-	width: 10rem;
+	width: 15rem;
 	margin: 1rem;
 
 	background-color: white;
@@ -25,34 +25,88 @@ html {
 	padding: 2rem;
 }
 
+.container > :last-child {
+	margin-bottom: 0;
+}
+
+.container > :first-child {
+	margin-top: 0;
+}
+
 label {
-	width: 4rem;
+	min-width: 3rem;
 }
 
 input {
 	width: 100%;
-	border-radius: 2px;
+	border-radius: 3px 0 0 3px;
 	border: 1px #BBB solid;
-	height: 1.5rem;
 	padding-left: 6px;
+}
+
+input.ok {
+	border-color: #009F6B;
+}
+
+input.wrong {
+	border-color: #C40233;
+}
+
+.unitlabel {
+	border: 1px #BBB solid;
+	border-left: none;
+	border-radius: 0 3px 3px 0;
+	padding: 0 0.5rem;
+	background-color: #ebebeb;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .form-row {
 	display: flex;
+	margin: 0.6rem 0;
+	height: 2rem;
+}
+
+.form-row > * {
+	display: flex;
 	align-items: center;
-	margin: 1rem 0;
 }
 
 button {
   color: #fff;
-  background-color: #0087BD;
+  background-color: #0087bd;
   border: none;
   height: 2rem;
   width: 100%;
   border-radius: 2px;
+	margin: 0.6rem 0;
+}
+
+button:hover {
+	background-color: #0097bd;
 }
 
 h1 {
 	font-size: 1.8rem;
-	margin-top: 0;
+	margin-bottom: 0.2rem;
+}
+
+#coordinates {
+	color: green;
+	border-radius: 2px;
+	margin-top: 1rem;
+}
+
+.monospace {
+	font-family: monospace;
+	font-size: 0.8rem;
 }

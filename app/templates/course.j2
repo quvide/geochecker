@@ -1,3 +1,7 @@
+<!--
+Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
+-->
+
 <!doctype html>
 <html>
 	<head>
@@ -13,17 +17,23 @@
 	<body>
 		<div class="container">
 			<h1>{{ title }}</h1>
-			<form>
-				{% for task in tasks %}
+			<p>Sallitut yritykset jäljellä: inf</p><br/>
+			<form id="form">
+				{% for task, val in tasks.items() %}
 			    <div class="form-row">
 		        <label for="{{ task }}">{{ task }}</label>
-		        <input type="number" step="any" id="{{ task }}" />
+		        <input type="number" id="{{ task }}" name="{{ task }}" />
+						<span class="unitlabel">{{ val.unit }}</span>
 			    </div>
 				{% endfor %}
 
 		    <div class="button">
-		        <button type="submit">Tarkista</button>
+		        <button type="submit" id="submit-button">Tarkista</input>
 		    </div>
+
+				<div id="coordinates">
+
+				</div>
 			</form>
 		</div>
 	</body>
