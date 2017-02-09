@@ -7,6 +7,8 @@ body {
 	margin: 0;
 
 	background-color: #DDD;
+	background-image: url("bg.jpg");
+	background-size: cover;
 
 	font-family: 'Titillium Web', sans-serif;
 	font-size: 16px;
@@ -59,7 +61,7 @@ input.wrong {
 	border: 1px #BBB solid;
 	border-left: none;
 	border-radius: 0 3px 3px 0;
-	padding: 0 0.5rem;
+	padding: 0 0.8rem;
 	background-color: #ebebeb;
 }
 
@@ -88,7 +90,7 @@ button {
   color: #fff;
   background-color: #0087bd;
   border: none;
-  height: 2rem;
+  height: 2.5rem;
   width: 100%;
   border-radius: 2px;
 	margin: 0.6rem 0;
@@ -98,16 +100,20 @@ button:hover {
 	background-color: #0097bd;
 }
 
+button[disabled] {
+	background-color: rgb(221, 221, 221);
+}
+
 h1 {
 	font-size: 1.8rem;
 	margin-bottom: 0.2rem;
 }
 
 .coordinates {
-	color: green;
+	color: #009F6B;
 	font-family: monospace;
 }
 
 .error {
-	color: red;
+	color: #C40233;
 }

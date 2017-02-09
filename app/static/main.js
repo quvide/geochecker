@@ -17,6 +17,11 @@ $(document).ready(function() {
 			} else {
 				$("#status").html("<span class=\"error\">Muista täyttää CAPTCHA!</span>");
 			}
+
+			$("#available-requests").text(data.available_requests);
+			if (data.available_requests === 0) {
+				$("#submit-button").prop("disabled", "true")
+			}
 		});
 	});
 });
