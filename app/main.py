@@ -7,7 +7,8 @@ DATA = {
         "title": "GC12345",
         "tasks": {
             "1a": {"val": 1, "unit": "kertaa"},
-            "1b": {"val": 2, "unit": "%"}
+            "1b": {"val": 2, "unit": "%"},
+            "2": {"val": 3}
         },
         "coordinates": "N61°09'47.7\" E24°05'39.1\""
     }

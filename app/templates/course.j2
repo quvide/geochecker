@@ -20,10 +20,12 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
 			<p>Sallitut yritykset jäljellä: inf</p><br/>
 			<form id="form">
 				{% for task, val in tasks.items() %}
-			    <div class="form-row">
-		        <label for="{{ task }}">{{ task }}</label>
-		        <input type="number" id="{{ task }}" name="{{ task }}" />
-						<span class="unitlabel">{{ val.unit }}</span>
+		    <div class="form-row">
+	        <label for="{{ task }}">{{ task }}</label>
+	        <input type="number" id="{{ task }}" name="{{ task }}" />
+					{% if val.unit %}
+					<span class="unitlabel">{{ val.unit }}</span>
+					{% endif %}
 			    </div>
 				{% endfor %}
 

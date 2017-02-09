@@ -44,6 +44,10 @@ input {
 	padding-left: 6px;
 }
 
+input:last-child {
+	border-radius: 3px;
+}
+
 input.ok {
 	border-color: #009F6B;
 }
