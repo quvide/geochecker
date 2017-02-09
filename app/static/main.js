@@ -3,13 +3,19 @@ $(document).ready(function() {
 	  event.preventDefault();
 
 		$.post("#", $(this).serializeArray(), function(data, status, res) {
-			for (var attr in data.fields) {
-				$("#" + attr).removeClass();
-				$("#" + attr).addClass(data.fields[attr]);
-			}
+			grecaptcha.reset();
+			if (data.captcha_success) {
+				$("#status").html("");
+				for (var attr in data.fields) {
+					$("#" + attr).removeClass();
+					$("#" + attr).addClass(data.fields[attr]);
+				}
 
-			if (data.coordinates) {
-				$("#coordinates").html("<p class=\"monospace\">" + data.coordinates + "</p>");
+				if (data.coordinates) {
+					$("#status").html("<span class=\"coordinates\">" + data.coordinates + "</span>");
+				}
+			} else {
+				$("#status").html("<span class=\"error\">Muista täyttää CAPTCHA!</span>");
 			}
 		});
 	});

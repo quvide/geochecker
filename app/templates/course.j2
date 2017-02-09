@@ -11,6 +11,8 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
 
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+
     <script src="static/main.js"></script>
     <link rel="stylesheet" href="static/main.css">
   </head>
@@ -29,11 +31,13 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
         </div>
         {% endfor %}
 
+				<div class="g-recaptcha" data-sitekey="{{ captcha_key }}"></div>
+
         <div class="button">
           <button type="submit" id="submit-button">Tarkista</input>
         </div>
 
-        <div id="coordinates">
+        <div id="status">
 
         </div>
       </form>
