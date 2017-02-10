@@ -103,6 +103,7 @@ button:hover {
 
 button[disabled] {
 	background-color: rgb(221, 221, 221);
+	cursor: default;
 }
 
 h1 {

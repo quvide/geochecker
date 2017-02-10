@@ -2,3 +2,4 @@ Flask==0.12
 requests==2.13.0
 ruamel.yaml==0.13.13
 redis==2.10.5
+uWSGI==2.0.14

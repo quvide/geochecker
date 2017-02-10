@@ -6,10 +6,10 @@ from collections import deque
 
 from redislimiter import RedisLimiter
 
-redis = Redis()
+redis = Redis("redis")
 
 def get_ratelimit():
-    key = str(request.remote_addr + g.course)
+    key = str(request.environ["REMOTE_ADDR"] + g.course)
     max_requests = g.coursedata["limits"]["req"]
     time = g.coursedata["limits"]["time"]
     return RedisLimiter(redis, max_requests, time, key)
@@ -60,6 +60,8 @@ def check():
             if key in data and data[key] and int(data[key]) == val["val"]:
                 res["fields"][key] = "ok"
             else:
+                print(int(data[key]))
+                print(val["val"])
                 res["fields"][key] = "wrong"
                 wrong = True
 
