@@ -9,7 +9,7 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
       GEO
     </title>
 
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -20,7 +20,6 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
     <div class="container">
       <h1>{{ title }}</h1>
       <p>Enintään <span id="max-requests"></span> tarkistusta <span id="time"></span> minuutissa.</p>
-      <p>Jäljellä <span id="available-requests"></span>.</p><br/>
       <form id="form">
         {% for task, val in tasks.items() %}
         <div class="form-row">
@@ -35,7 +34,7 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
 				<div class="g-recaptcha" data-sitekey="{{ captcha_key }}"></div>
 
         <div class="button">
-          <button type="submit" id="submit-button">Tarkista</input>
+          <button type="submit" id="submit-button">Tarkista (<span id="available-requests"></span> jäljellä)</button>
         </div>
 
         <div id="status">

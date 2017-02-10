@@ -33,7 +33,7 @@ $(document).ready(function() {
 					$("#status").html("<span class=\"coordinates\">" + data.coordinates + "</span>");
 				}
 			} else {
-				$("#status").html("<span class=\"error\">Muista täyttää CAPTCHA!</span>");
+				$("#status").html("<span class=\"error\">Muista suorittaa reCAPTCHA!</span>");
 			}
 		});
 	});

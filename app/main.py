@@ -1,46 +1,21 @@
 from flask import Flask, jsonify, render_template, request, abort, Blueprint, g
-from redis import Redis
+from redis import StrictRedis as Redis
 import requests
 import ruamel.yaml as yaml
-import time
 from collections import deque
 
-class Limiter:
-    def __init__(self, max_requests, time):
-        self.max_requests = max_requests
-        self.time = time
-        self.history = deque()
+from redislimiter import RedisLimiter
 
-    def __refresh(self):
-        now = time.time()
-        while len(self.history) > 0 and self.history[0] < now:
-            self.history.popleft()
-
-    def add(self):
-        self.history.append(time.time() + self.time)
-
-    def request_available(self):
-        self.__refresh()
-        return len(self.history) < self.max_requests
-
-    def available_requests(self):
-        self.__refresh()
-        return self.max_requests - len(self.history)
-
-    def __repr__(self):
-        return "max_requests {}, time {}, history {}".format(self.max_requests, self.time, repr(self.history))
-
-limits = {}
+redis = Redis()
 
 def get_ratelimit():
-    ratelimit_key = str(request.remote_addr)
-    if not ratelimit_key in limits:
-        limits[ratelimit_key] = Limiter(g.coursedata["limits"]["req"], g.coursedata["limits"]["time"])
-    return limits[ratelimit_key]
+    key = str(request.remote_addr + g.course)
+    max_requests = g.coursedata["limits"]["req"]
+    time = g.coursedata["limits"]["time"]
+    return RedisLimiter(redis, max_requests, time, key)
 
 
 app = Flask(__name__)
-redis = Redis()
 course = Blueprint("course", __name__, url_prefix="/<course>")
 
 with open("config.yaml", "r") as f:
