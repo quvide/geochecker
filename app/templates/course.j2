@@ -31,10 +31,10 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
         </div>
         {% endfor %}
 
-				<div class="g-recaptcha" data-sitekey="{{ captcha_key }}"></div>
+				<div class="g-recaptcha" data-sitekey="{{ captcha_key }}" data-callback="recaptchaDone"></div>
 
         <div class="button">
-          <button type="submit" id="submit-button">Tarkista (<span id="available-requests"></span> jäljellä)</button>
+          <button type="submit" id="submit-button" disabled="disabled">Tarkista (<span id="available-requests"></span> jäljellä)</button>
         </div>
 
         <div id="status">

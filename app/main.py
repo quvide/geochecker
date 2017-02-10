@@ -60,8 +60,6 @@ def check():
             if key in data and data[key] and int(data[key]) == val["val"]:
                 res["fields"][key] = "ok"
             else:
-                print(int(data[key]))
-                print(val["val"])
                 res["fields"][key] = "wrong"
                 wrong = True
 
