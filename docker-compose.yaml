@@ -1,10 +1,13 @@
 version: '2'
 services:
   flask:
+    depends_on: [redis]
+    restart: always
     build: .
     ports:
      - "9000:9000"
     volumes:
      - ./app:/app
   redis:
+    restart: always
     image: "redis:alpine"
