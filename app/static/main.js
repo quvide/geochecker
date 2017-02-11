@@ -35,7 +35,7 @@ $(document).ready(function() {
   }
 
   updateAvailableRequests();
-  setInterval(updateAvailableRequests, "10000");
+  setInterval(updateAvailableRequests, 1000*60);
 
   $("#form").submit(function(event) {
     event.preventDefault();
