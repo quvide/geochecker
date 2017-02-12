@@ -10,3 +10,6 @@ data:
       "1b": {"val": 2, "unit": "%"}
       "2": {"val": 3}
     "coordinates": "N61°09'47.7\" E24°05'39.1\""
+
+# this should be the same as in docker-compose.yaml
+redis_host: "redis"

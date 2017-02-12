@@ -25,12 +25,19 @@ $(document).ready(function() {
       $("#available-requests").text(data.available_requests);
       if (data.available_requests < 1) {
         requests_available = false;
+        $("#next-available-request").text("Seuraava yritys aukeaa " + moment.unix(data.next_available_request).format("HH:mm") + ".");
       } else {
         requests_available = true;
+        $("#next-available-request").text("");
       }
+
+      updateSubmitButton();
 
       $("#max-requests").text(data.max_requests);
       $("#time").text(data.time/60);
+
+      $("#correct-counter").text(data.correct_counter);
+      $("#incorrect-counter").text(data.incorrect_counter);
     });
   }
 

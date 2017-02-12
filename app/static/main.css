@@ -108,7 +108,38 @@ button[disabled] {
 
 h1 {
   font-size: 1.8rem;
-  margin-bottom: 0.2rem;
+  margin: 0;
+  margin-right: 2rem;
+}
+
+/* saatan ylikäyttää flexboxeja */
+
+.title-container {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.guesses-container {
+  width: 100%;
+  display: flex;
+  height: 2rem;
+}
+
+.guesses-container > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.correct-guesses {
+  background-color: #adff8c;
+  border-radius: 5px 0 0 5px;
+}
+
+.incorrect-guesses {
+  background-color: #ff928a;
+  border-radius: 0 5px 5px 0;
 }
 
 .coordinates {

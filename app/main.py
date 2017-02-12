@@ -6,10 +6,17 @@ from collections import deque
 
 from redislimiter import RedisLimiter
 
-redis = Redis("redis")
+with open("config.yaml", "r") as f:
+    CONFIG = yaml.safe_load(f)
+    DATA = CONFIG["data"]
+
+    if not CONFIG or not DATA:
+        exit("Missing configuration file or it is invalid!")
+
+redis = Redis(CONFIG["redis_host"], decode_responses=True)
 
 def get_ratelimit():
-    key = str(request.environ["REMOTE_ADDR"] + g.course)
+    key = "rate-limit/{}/{}".format(request.environ["REMOTE_ADDR"], g.course)
     max_requests = g.coursedata["limits"]["req"]
     time = g.coursedata["limits"]["time"]
     return RedisLimiter(redis, max_requests, time, key)
@@ -17,13 +24,6 @@ def get_ratelimit():
 
 app = Flask(__name__)
 course = Blueprint("course", __name__, url_prefix="/<course>")
-
-with open("config.yaml", "r") as f:
-    CONFIG = yaml.safe_load(f)
-    DATA = CONFIG["data"]
-
-if not CONFIG or not DATA:
-    exit("Missing configuration file or it is invalid!")
 
 @course.url_value_preprocessor
 def pull_course(endpoint, values):
@@ -64,8 +64,10 @@ def check():
                 wrong = True
 
         if not wrong:
+            redis.incr("solved")
             res["coordinates"] = g.coursedata["coordinates"]
         else:
+            redis.incr("failed")
             # don't count correct answers to rate limit
             ratelimit.add()
 
@@ -76,10 +78,19 @@ def check():
 @course.route("/rate", methods=["POST"])
 def rate():
     ratelimit = get_ratelimit()
+    correct_counter = redis.get("solved")
+    incorrect_counter = redis.get("failed")
+    if not correct_counter:
+        correct_counter = 0
+    if not incorrect_counter:
+        incorrect_counter = 0
     res = {
         "available_requests": ratelimit.available_requests(),
         "max_requests": ratelimit.max_requests,
-        "time": ratelimit.time
+        "time": ratelimit.time,
+        "next_available_request": int(ratelimit.next_available_request()),
+        "correct_counter": int(correct_counter),
+        "incorrect_counter": int(incorrect_counter)
     }
 
     return jsonify(res)

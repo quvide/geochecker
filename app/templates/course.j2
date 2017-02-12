@@ -11,15 +11,24 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 
     <script src="../static/main.js"></script>
     <link rel="stylesheet" href="../static/main.css">
   </head>
   <body>
     <div class="container">
-      <h1>{{ title }}</h1>
+      <div class="title-container">
+        <h1>{{ title }}</h1>
+        <div class="guesses-container">
+          <div class="correct-guesses"><span id="correct-counter"></span></div>
+          <div class="incorrect-guesses"><span id="incorrect-counter"></span></div>
+        </div>
+      </div>
+
       <p>Enintään <span id="max-requests"></span> tarkistusta <span id="time"></span> minuutissa.</p>
+      <p id="next-available-request"></p>
       <form id="form">
         {% for task, val in tasks.items() %}
         <div class="form-row">
@@ -31,7 +40,7 @@ Tämä on aamun pikkutunneilla kirjoitettua purkkaa, suokaa anteeksi lukijat.
         </div>
         {% endfor %}
 
-				<div class="g-recaptcha" data-sitekey="{{ captcha_key }}" data-callback="recaptchaDone"></div>
+        <div class="g-recaptcha" data-sitekey="{{ captcha_key }}" data-callback="recaptchaDone"></div>
 
         <div class="button">
           <button type="submit" id="submit-button" disabled="disabled">Tarkista (<span id="available-requests"></span> jäljellä)</button>

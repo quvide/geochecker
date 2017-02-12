@@ -11,7 +11,7 @@ class RedisLimiter:
         self.redis.zremrangebyscore(self.key, 0, time.time())
 
     def add(self):
-        now = time.time()
+        now = int(time.time())
         self.redis.zadd(self.key, now + self.time, now) # score, value
 
     def request_available(self):
@@ -21,3 +21,11 @@ class RedisLimiter:
     def available_requests(self):
         self.__refresh()
         return self.max_requests - self.redis.zcard(self.key)
+
+    def next_available_request(self):
+        self.__refresh()
+        res = self.redis.zrevrange(self.key, 0, 0, withscores=True)
+        if len(res) != 1:
+            return 0
+        else:
+            return res[0][1]
