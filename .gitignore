@@ -4,3 +4,4 @@ include/
 lib/
 pip-selfcheck.json
 app/config.yaml
+redis_data/

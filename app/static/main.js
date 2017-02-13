@@ -36,8 +36,8 @@ $(document).ready(function() {
       $("#max-requests").text(data.max_requests);
       $("#time").text(data.time/60);
 
-      $("#correct-counter").text(data.correct_counter + "✓");
-      $("#incorrect-counter").text(data.incorrect_counter + "✗");
+      $("#correct-counter").text(data.correct_counter + " ✓");
+      $("#incorrect-counter").text(data.incorrect_counter + " ✗");
     });
   }
 
