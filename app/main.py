@@ -16,10 +16,24 @@ with open("config.yaml", "r") as f:
 redis = Redis(CONFIG["redis_host"], decode_responses=True)
 
 def get_ratelimit():
-    key = "rate-limit/{}/{}".format(request.environ["REMOTE_ADDR"], g.course)
+    key = "{}/rate-limit/{}".format(request.environ["REMOTE_ADDR"], g.course)
     max_requests = g.coursedata["limits"]["req"]
     time = g.coursedata["limits"]["time"]
     return RedisLimiter(redis, max_requests, time, key)
+
+def get_stats():
+    solved = redis.get("{}/solved".format(g.course))
+    failed = redis.get("{}/failed".format(g.course))
+
+    if not solved:
+        solved = 0
+    if not failed:
+        failed = 0
+
+    return {
+        "solved": int(solved),
+        "failed": int(failed)
+    }
 
 
 app = Flask(__name__)
@@ -64,10 +78,10 @@ def check():
                 wrong = True
 
         if not wrong:
-            redis.incr("solved")
+            redis.incr("{}/solved".format(g.course))
             res["coordinates"] = g.coursedata["coordinates"]
         else:
-            redis.incr("failed")
+            redis.incr("{}/failed".format(g.course))
             # don't count correct answers to rate limit
             ratelimit.add()
 
@@ -78,19 +92,15 @@ def check():
 @course.route("/rate", methods=["POST"])
 def rate():
     ratelimit = get_ratelimit()
-    correct_counter = redis.get("solved")
-    incorrect_counter = redis.get("failed")
-    if not correct_counter:
-        correct_counter = 0
-    if not incorrect_counter:
-        incorrect_counter = 0
+    stats = get_stats()
+
     res = {
         "available_requests": ratelimit.available_requests(),
         "max_requests": ratelimit.max_requests,
         "time": ratelimit.time,
         "next_available_request": int(ratelimit.next_available_request()),
-        "correct_counter": int(correct_counter),
-        "incorrect_counter": int(incorrect_counter)
+        "correct_counter": stats["solved"],
+        "incorrect_counter": stats["failed"]
     }
 
     return jsonify(res)

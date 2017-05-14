@@ -13,7 +13,7 @@ services:
     image: "redis:alpine"
     command: redis-server --appendonly yes
     volumes:
-     - geochecker-redis:/data
+     - redis:/data
 
 volumes:
- geochecker-redis:
+ redis:
