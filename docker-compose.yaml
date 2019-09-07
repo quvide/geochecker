@@ -5,7 +5,7 @@ services:
     restart: always
     build: .
     ports:
-     - "9000:9000"
+     - "6300:9000"
     volumes:
      - ./app:/app
   redis:
@@ -13,7 +13,4 @@ services:
     image: "redis:alpine"
     command: redis-server --appendonly yes
     volumes:
-     - redis:/data
-
-volumes:
- redis:
+     - /srv/data/quvide/geochecker/redis:/data
