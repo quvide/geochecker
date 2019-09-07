@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.5.3
 COPY app/requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 COPY app /app
