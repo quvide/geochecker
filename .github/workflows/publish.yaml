@@ -30,7 +30,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5.0.0
         with:
-          context: backend
+          context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
