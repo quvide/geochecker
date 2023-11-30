@@ -1,13 +1,13 @@
 from flask import Flask, jsonify, render_template, request, abort, Blueprint, g
 from redis import StrictRedis as Redis
 import requests
-import ruamel.yaml as yaml
-from collections import deque
+from ruamel.yaml import YAML
 
 from redislimiter import RedisLimiter
 
 with open("config.yaml", "r") as f:
-    CONFIG = yaml.safe_load(f)
+    yaml = YAML(typ='safe', pure=True)
+    CONFIG = yaml.load(f)
     DATA = CONFIG["data"]
 
     if not CONFIG or not DATA:
